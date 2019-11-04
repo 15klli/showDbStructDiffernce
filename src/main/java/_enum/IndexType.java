@@ -1,7 +1,6 @@
 package _enum;
 
 import common.Constants;
-import sun.applet.Main;
 
 /**
  * @file: _enum.IndexType
@@ -13,17 +12,19 @@ import sun.applet.Main;
  */
 
 public enum IndexType {
-    NORMAL(0,"KEY"),
-    UNIQUE(1,String.format("UNIQUE%sKEY", Constants.SEPERATOR)),
-    FULL_TEXT(2,String.format("FULLTEXT%sKEY",Constants.SEPERATOR)),
+    NORMAL(0,"KEY", ""),
+    UNIQUE(1,String.format("UNIQUE%sKEY", Constants.SEPERATOR), "UNIQUE"),
+    FULL_TEXT(2,String.format("FULLTEXT%sKEY",Constants.SEPERATOR), "FULLTEXT"),
     ;
 
     private final int code;
     private final String indexType;
+    private final String indexName;
 
-    IndexType(int code, String indexType) {
+    IndexType(int code, String indexType, String indexName) {
         this.code = code;
         this.indexType = indexType;
+        this.indexName = indexName;
     }
 
     public int getCode() {
@@ -32,6 +33,10 @@ public enum IndexType {
 
     public String getIndexType() {
         return indexType;
+    }
+
+    public String getIndexName() {
+        return indexName;
     }
 
     public static IndexType getInstance(String indexType) {

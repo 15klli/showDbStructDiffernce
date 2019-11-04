@@ -2,6 +2,7 @@ package common;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * @file: common.Constants
@@ -15,6 +16,13 @@ import java.util.List;
 public class Constants {
 
     public static final String SEPERATOR = " ";
+    public static String SQL_END_APPEND = ",\r\n";
+    public static String WRAP_STRING = "\r\n";
+    private static final String tableEndFlag = String.format("CHARSET(%s)*=(%s)*[\\d\\D]*?;",SEPERATOR,SEPERATOR);
+    private static final String tableStartFlag = String.format("CREATE(%s)*TABLE",SEPERATOR);
+    public static Pattern endPattern = Pattern.compile(tableEndFlag);
+    public static Pattern startPattern = Pattern.compile(tableStartFlag);
+    public static final int NOT_FOUND= -1;
     public static final String CommentStartFlag = "COMMENT";
     public static final String keyFlag = "KEY";
     public static final List<String> supportEngines;

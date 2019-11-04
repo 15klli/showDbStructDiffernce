@@ -1,8 +1,11 @@
 package model;
 
 import _enum.DataType;
+import _exception.ComparingException;
+import util.SqlFactory;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @file: model.Row
@@ -127,4 +130,25 @@ public class Row {
                 ", isUnsigned=" + isUnsigned +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Row row = (Row) o;
+
+        if (isNullAble != row.isNullAble) return false;
+        if (isAutoIncrease != row.isAutoIncrease) return false;
+        if (isUnsigned != row.isUnsigned) return false;
+        if (!Objects.equals(rowName.trim(), row.rowName.trim())) return false;
+        if (dataType != row.dataType) return false;
+        if (!Objects.equals(length, row.length)) return false;
+        if (!Objects.equals(decimalLength, row.decimalLength)) return false;
+        if (!Objects.equals(comment.trim(), row.comment.trim())) return false;
+        return Objects.equals(defaultValue, row.defaultValue);
+    }
+
+
+
 }

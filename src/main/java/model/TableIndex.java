@@ -2,6 +2,7 @@ package model;
 
 import _enum.IndexMethod;
 import _enum.IndexType;
+import util.ListUtils;
 
 import java.util.List;
 
@@ -63,5 +64,27 @@ public class TableIndex {
                 ", indexType=" + indexType +
                 ", indexMethod=" + indexMethod +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TableIndex that = (TableIndex) o;
+
+        if (!indexName.equals(that.indexName)) return false;
+        if (!ListUtils.equalsListIgnoreOrder(rowList,that.rowList)) return false;
+        if (indexType != that.indexType) return false;
+        return indexMethod == that.indexMethod;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = indexName.hashCode();
+        result = 31 * result + rowList.hashCode();
+        result = 31 * result + indexType.hashCode();
+        result = 31 * result + indexMethod.hashCode();
+        return result;
     }
 }

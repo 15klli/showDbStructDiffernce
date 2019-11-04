@@ -14,6 +14,8 @@ import java.util.List;
 
 public class Table {
 
+    private String createSql;
+
     private List<Row> rowList;
 
     private String comment;
@@ -95,17 +97,45 @@ public class Table {
         this.engine = engine;
     }
 
+    public String getCreateSql() {
+        return createSql;
+    }
+
+    public void setCreateSql(String createSql) {
+        this.createSql = createSql;
+    }
+
     @Override
     public String toString() {
         return "Table{" +
-                "rowList=" + rowList +
+                "tableName='" + tableName + '\'' +
+                ", rowList=" + rowList +
                 ", comment='" + comment + '\'' +
-                ", tableName='" + tableName + '\'' +
                 ", autoIncreament=" + autoIncreament +
                 ", charset='" + charset + '\'' +
                 ", engine='" + engine + '\'' +
                 ", primaryKeyRowNameList=" + primaryKeyRowNameList +
                 ", tableIndexList=" + tableIndexList +
                 '}';
+    }
+
+    public boolean equalsPrimaryKeyList(List<String> anotherList){
+        if (this.primaryKeyRowNameList.equals(anotherList)) return true;
+        //因为有顺序问题
+        if (this.primaryKeyRowNameList.size()!=anotherList.size()){
+            return false;
+        }else{
+            for (String primaryKey : this.primaryKeyRowNameList) {
+                if (!anotherList.contains(primaryKey)) return false;
+            }
+            return true;
+        }
+    }
+
+    public boolean isTableIndexListContains(TableIndex tableIndex){
+        for (TableIndex myIndex : this.tableIndexList) {
+            if (myIndex.equals(tableIndex)) return true;
+        }
+        return false;
     }
 }
