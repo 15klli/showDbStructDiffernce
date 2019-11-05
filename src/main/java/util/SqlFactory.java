@@ -8,6 +8,8 @@ import model.TableIndex;
 
 import java.util.List;
 
+import static common.Constants.WRAP_STRING;
+
 /**
  * @file: util.SqlFactory
  * @Description: todo
@@ -50,35 +52,37 @@ public class SqlFactory {
         return "";
     }
 
-    private static String getRowSql(SupportedRowChangeMethod changeMethod, Row toRow){
-        String builder = changeMethod.getMethodName() + SQL_SEPERATOR + "COLUMN" + SQL_SEPERATOR +
-                toRow.getRowName() + SQL_SEPERATOR + toRow.getDataType() + getLengthPartString(toRow) + SQL_SEPERATOR +
+    //CHANGE COLUMN `Fexchange_rate` `Fexchange_rate2`  int(11) UNSIGNED NULL DEFAULT NULL COMMENT '直接汇率: 一百万外币兑人民币(元)' AFTER `Ftarget_currency_id`;
+    public static String getRenameRowSql(Row fromRow,Row toRow){
+        return "CHANGE" + SQL_SEPERATOR + "COLUMN" + SQL_SEPERATOR +
+                String.format("`%s` `%s`",fromRow.getRowName(),toRow.getRowName()) + SQL_SEPERATOR + toRow.getDataType() + getLengthPartString(toRow) + SQL_SEPERATOR +
                 getNullAblePartString(toRow) + SQL_SEPERATOR +
                 getDefaultValuePartString(toRow) + SQL_SEPERATOR +
                 getCommentPartString(toRow);
-        return builder;
     }
 
-    public static String getModifySql(Row toRow){
+    private static String getRowSql(SupportedRowChangeMethod changeMethod, Row toRow){
+        return changeMethod.getMethodName() + SQL_SEPERATOR + "COLUMN" + SQL_SEPERATOR +
+                String.format("`%s`",toRow.getRowName()) + SQL_SEPERATOR + toRow.getDataType() + getLengthPartString(toRow) + SQL_SEPERATOR +
+                getNullAblePartString(toRow) + SQL_SEPERATOR +
+                getDefaultValuePartString(toRow) + SQL_SEPERATOR +
+                getCommentPartString(toRow);
+    }
+    public static String getModifyRowSql(Row toRow){
         return getRowSql(SupportedRowChangeMethod.MODIFY,toRow);
     }
+
     public static String getAddRowSql(Row toRow){
         return getRowSql(SupportedRowChangeMethod.ADD,toRow);
     }
 
-    public static String getDropTableSql(Table table){
-        return String.format("DROP TABLE IF EXISTS `%s`",table.getTableName());
+    public static String getDropRowSql(Row row){
+        return String.format("DROP COLUMN `%s`",row.getRowName());
     }
 
-//    public static String showDiff(Row fromRow, Row toRow) {
-//        if (!fromRow.getRowName().equals(toRow.getRowName())){
-//            throw new ComparingException("字段名相同才进行判断");
-//        }
-//        if (!fromRow.equals(toRow)){
-//            return SqlFactory.getModifySql(toRow);
-//        }
-//        return null;
-//    }
+    public static String getDropRowSqlWithTable(Table table,Row row){
+        return getAlterTableSql(table)+ WRAP_STRING + String.format("DROP COLUMN `%s`",row.getRowName());
+    }
 
     private static String rowNameListToString(List<String> rowNameList){
         StringBuilder builder = new StringBuilder();
@@ -91,9 +95,15 @@ public class SqlFactory {
         return "DROP PRIMARY KEY,\r\nADD PRIMARY KEY " + String.format("(%s)",rowNameListToString(toTable.getPrimaryKeyRowNameList()));
     }
 
-    public static String getDropIndexString(TableIndex toDropTableIndex){
-        return String.format("DROP INDEX `%s`",toDropTableIndex.getIndexName());
+    public static String getDropRowTipsInSameNameTable(Table table,Row fromRow, Row toRow){
+        return String.format("/*==================\r\n重命名：%s表格中的 %s 字段名可能改成了 %s\r\n如果是,请运行以下语句==================*/",
+                table.getTableName(),fromRow.getRowName(),toRow.getRowName());
     }
+    public static String getDropRowTipsInDifferentNameTable(Table fromTable,Row fromRow,Table toTable, Row toRow){
+        return String.format("/*==================\r\n重命名：%s表格中的 %s 字段可能改成了%s表格中的 %s字段\r\n如果是,请运行以下语句==================*/",
+                fromTable.getTableName(),fromRow.getRowName(),toTable.getTableName(),toRow.getRowName());
+    }
+
 
     //ADD FULLTEXT INDEX `b2` (`Fpayment_refuse_reason`) ;
     public static String getAddIndexString(TableIndex toAddTableIndex){
@@ -107,5 +117,27 @@ public class SqlFactory {
 
     public static String getCharsetChangeString(String toCharset){
         return String.format("DEFAULT CHARACTER SET=%s",toCharset);
+    }
+
+    public static String getDropIndexString(TableIndex toDropTableIndex){
+        return String.format("DROP INDEX `%s`",toDropTableIndex.getIndexName());
+    }
+
+    //Table 的语句
+    public static String getDropTableSql(Table table){
+        return String.format("DROP TABLE IF EXISTS `%s`",table.getTableName());
+    }
+
+    public static String getRenameTableSql(Table fromTable,Table toTable){
+        return String.format("RENAME TABLE %s TO %s",fromTable.getTableName(),toTable.getTableName());
+    }
+
+    public static String getDropTableTips(Table fromTable,Table toTable){
+        return String.format("/*==================\r\n重命名：表格 %s 可能改成了 %s\r\n如果是,请运行以下语句==================*/",
+                fromTable.getTableName(),toTable.getTableName());
+    }
+
+    public static String getAlterTableSql(Table table){
+        return String.format("ALTER TABLE `%s`",table.getTableName());
     }
 }

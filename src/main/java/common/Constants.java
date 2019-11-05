@@ -34,6 +34,8 @@ public class Constants {
     public static final String decimalIntPartLengthEndFlag = ",";
     public static final String decimalSecondPartLengthStartFlag = ",";
     public static final String decimalSecondPartLengthEndFlag = ")";
+    public static final double TABLE_SAME_THRESHOLD = 0.8;
+    public static final double ROW_SAME_THRESHOLD = 0.8;
 
     static  {
         supportEngines = new ArrayList<>(4);

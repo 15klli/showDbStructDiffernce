@@ -138,4 +138,11 @@ public class Table {
         }
         return false;
     }
+
+    public Row indexRowByName(String rowName){
+        for (Row row : this.rowList) {
+            if (row.getRowName().equalsIgnoreCase(rowName)) return row;
+        }
+        return null;
+    }
 }
