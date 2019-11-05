@@ -96,11 +96,11 @@ public class SqlFactory {
     }
 
     public static String getDropRowTipsInSameNameTable(Table table,Row fromRow, Row toRow){
-        return String.format("/*==================\r\n重命名：%s表格中的 %s 字段名可能改成了 %s\r\n如果是,请运行以下语句==================*/",
+        return String.format("/*\r\n==================\r\n重命名：【%s】表格中的 【%s】字段名可能改成了 【%s】\r\n如果是,请运行以下语句\r\n==================\r\n*/",
                 table.getTableName(),fromRow.getRowName(),toRow.getRowName());
     }
     public static String getDropRowTipsInDifferentNameTable(Table fromTable,Row fromRow,Table toTable, Row toRow){
-        return String.format("/*==================\r\n重命名：%s表格中的 %s 字段可能改成了%s表格中的 %s字段\r\n如果是,请运行以下语句==================*/",
+        return String.format("/*\r\n==================\r\n重命名：【%s】表格中的 【%s】 字段可能改成了%s表格中的 【%s】字段\r\n如果是,请运行以下语句\r\n==================\r\n*/",
                 fromTable.getTableName(),fromRow.getRowName(),toTable.getTableName(),toRow.getRowName());
     }
 
@@ -133,11 +133,15 @@ public class SqlFactory {
     }
 
     public static String getDropTableTips(Table fromTable,Table toTable){
-        return String.format("/*==================\r\n重命名：表格 %s 可能改成了 %s\r\n如果是,请运行以下语句==================*/",
+        return String.format("/*\r\n==================\r\n重命名：表格 【%s】 可能改成了 【%s】\r\n如果是,请运行以下语句\r\n==================\r\n*/",
                 fromTable.getTableName(),toTable.getTableName());
     }
 
     public static String getAlterTableSql(Table table){
         return String.format("ALTER TABLE `%s`",table.getTableName());
+    }
+
+    public static String getSplitLine(){
+        return "/*-------------------------------------------------*/";
     }
 }

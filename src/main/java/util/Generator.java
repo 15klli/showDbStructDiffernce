@@ -29,6 +29,13 @@ public class Generator {
     private StringBuilder alterOrAddSqlStringBuilder;
     private StringBuilder deleteOrRenameSqlStringBuilder;
 
+    public String getAlterOrAddSqlString(){
+        return this.alterOrAddSqlStringBuilder.toString();
+    }
+    public String getDeleteOrRenameSqlString(){
+        return this.deleteOrRenameSqlStringBuilder.toString();
+    }
+
     public Generator(List<Table> fromTableList, List<Table> toTableList) {
         this.fromTableList = fromTableList;
         this.toTableList = toTableList;
@@ -36,7 +43,7 @@ public class Generator {
         deleteOrRenameSqlStringBuilder = new StringBuilder();
     }
 
-    public String generate(){
+    public Generator generate(){
         Map<String,Table> toTableMap = toTableList.stream().collect(Collectors.toMap(Table::getTableName,table -> table));
         Map<String,Table> fromTableMap = fromTableList.stream().collect(Collectors.toMap(Table::getTableName,table -> table));
         //处理表名没变化的表格中的行：增加、修改
@@ -119,8 +126,6 @@ public class Generator {
         fromTableList.forEach(fromTable ->{
             if (toTableMap.keySet().contains(fromTable.getTableName())) fromTableMap.remove(fromTable.getTableName());
         });
-        //处理字段重命名的情况
-
 
         //处理表格重命名的情况
         // 遍历对比不同的表格项，看看能否发现只是重命名的
@@ -138,7 +143,7 @@ public class Generator {
                 }
             }
         }
-        return alterOrAddSqlStringBuilder.toString();
+        return this;
     }
 
     //对比Row之间的Rename
@@ -165,7 +170,7 @@ public class Generator {
                             //然后加上重命名
                             deleteOrRenameSqlStringBuilder.append(SqlFactory.getRenameRowSql(fromRow, toRow)).append(SQL_END_APPEND);
                             //结束语句
-                            changeTheEndOfSql(deleteOrRenameSqlStringBuilder);
+                            changeTheEndOfSql(deleteOrRenameSqlStringBuilder).append(WRAP_STRING).append(WRAP_STRING).append(SqlFactory.getSplitLine());
                             //删除内层，不要重复对比，保证一个最多与一个表格匹配
                             toIterator.remove();
                         }
