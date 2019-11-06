@@ -120,7 +120,8 @@ public class Table {
     }
 
     public boolean equalsPrimaryKeyList(List<String> anotherList){
-        if (this.primaryKeyRowNameList.equals(anotherList)) return true;
+        //可能为null
+        if (this.primaryKeyRowNameList == anotherList || this.primaryKeyRowNameList.equals(anotherList)) return true;
         //因为有顺序问题
         if (this.primaryKeyRowNameList.size()!=anotherList.size()){
             return false;

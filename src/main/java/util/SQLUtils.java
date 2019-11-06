@@ -25,7 +25,7 @@ public class SQLUtils {
 
     static {
         Properties properties = new Properties();
-        try {properties.load(new FileInputStream("src/main/resources/sql.properties"));
+        try {properties.load(new FileInputStream("src/main/resources/sqlDir.properties"));
             driver = properties.getProperty("driver");
             url = properties.getProperty("url");
             user = properties.getProperty("user");
@@ -38,9 +38,9 @@ public class SQLUtils {
 //        Class.forName(driver);
 //        Connection connection = DriverManager.getConnection(url, user, password);
 //
-//        String sql = "select * from "+ tableName;
-//        PreparedStatement stmt =connection.prepareStatement(sql);
-//        ResultSet rs = stmt.executeQuery(sql);
+//        String sqlDir = "select * from "+ tableName;
+//        PreparedStatement stmt =connection.prepareStatement(sqlDir);
+//        ResultSet rs = stmt.executeQuery(sqlDir);
 //        ResultSetMetaData rsMetaData = rs.getMetaData();
 //        Table Table =new Table();
 //        Table.setName(tableName);

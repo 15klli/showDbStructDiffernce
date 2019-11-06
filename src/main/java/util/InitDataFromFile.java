@@ -5,6 +5,7 @@ import _enum.IndexMethod;
 import _enum.IndexType;
 import _exception.NotSupportEngine;
 import _exception.NotSupportFileException;
+import com.sun.org.apache.regexp.internal.RE;
 import common.Constants;
 import model.Row;
 import model.Table;
@@ -32,18 +33,24 @@ import static common.Constants.*;
 
 public class InitDataFromFile {
 
+    private static List<Table> getTablesFromFile(String directoryName,String fileName) throws IOException {
+        try(InputStream resourceAsStream = InitDataFromFile.class.getClassLoader().getResourceAsStream(directoryName+"/"+fileName)) {
+            return getTablesFromInputStream(resourceAsStream);
+        }
+    }
+    private static List<Table> getTablesFromFile(String fileName) throws IOException {
+        return getTablesFromFile(defaultSqlDirName,fileName);
+    }
 
-
-    public static List<Table> getTablesFromFile(String fileName) throws IOException {
-        String fileContent = getFileContent(fileName);
+    public static List<Table> getTablesFromInputStream(InputStream inputStream) throws IOException {
+        String fileContent = getFileContent(inputStream);
         List<Integer> startPosList = getStartPosList(fileContent);
         List<Integer> endPosList = getEndPosList(fileContent);
-
         if (startPosList.isEmpty() || endPosList.isEmpty()){
-            throw new RuntimeException(fileName+"没有一个完整的table创建语句");
+            throw new RuntimeException("没有一个完整的table创建语句");
         }
         if (startPosList.size() != endPosList.size()){
-            throw new RuntimeException(fileName+"有不完整的sql语句或不支持的版本");
+            throw new RuntimeException("有不完整的sql语句或不支持的版本");
         }
         List<String> tableStringList = getTableStringList(fileContent,startPosList,endPosList);
         List<Table> tableList = new ArrayList<>(tableStringList.size());
@@ -52,21 +59,19 @@ public class InitDataFromFile {
             table.setCreateSql(tableString);
             tableList.add(table);
         });
-       return tableList;
+        return tableList;
     }
 
-    private static String getFileContent(String fileName) throws IOException {
+
+    private static String getFileContent(InputStream inputStream) throws IOException {
         StringBuilder content = new StringBuilder();
-        try(InputStream resourceAsStream = InitDataFromFile.class.getClassLoader().getResourceAsStream("sql/"+fileName)) {
-            int read = 1;
-            assert resourceAsStream != null;
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(resourceAsStream, StandardCharsets.UTF_8));
-            String tempStr;
-            while ((tempStr = bufferedReader.readLine()) != null){
-               content.append(tempStr+ WRAP_STRING);
-            }
-            return handleBlank(content.toString());
+        assert inputStream != null;
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+        String tempStr;
+        while ((tempStr = bufferedReader.readLine()) != null) {
+            content.append(tempStr).append(WRAP_STRING);
         }
+        return handleBlank(content.toString());
     }
 
     private static String handleBlank(String content){
@@ -294,6 +299,7 @@ public class InitDataFromFile {
         row.setComment(getRowComment(rowString));
         DataType rowDataType = getRowDataType(rowString);
         row.setDataType(rowDataType);
+        row.setTimeIsUpdateWhenModify(getRowTimeIsUpdateWhenModify(rowString));
         row.setDefaultValue(getRowDefaultValue(rowString));
         row.setNullAble(isNullAble(rowString));
         row.setLength(getLength(rowString,rowDataType));
@@ -315,6 +321,10 @@ public class InitDataFromFile {
             throw new NotSupportFileException();
         }
         return substring;
+    }
+
+    private static boolean getRowTimeIsUpdateWhenModify(String rowString){
+        return rowString.contains(timeIsUpdateWhenModify);
     }
 
     /**
@@ -383,6 +393,7 @@ public class InitDataFromFile {
         String endFlag = "',";
         return getTargetString(rowString, startFlag, endFlag);
     }
+
 
     private static boolean isUnsigned(String rowString){
         final String unsignedFlag = "unsigned";

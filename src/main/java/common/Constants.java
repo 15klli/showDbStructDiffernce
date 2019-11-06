@@ -16,8 +16,9 @@ import java.util.regex.Pattern;
 public class Constants {
 
     public static final String SEPERATOR = " ";
-    public static String SQL_END_APPEND = ",\r\n";
+    public static String SQL_END_APPEND = ";\r\n";
     public static String WRAP_STRING = "\r\n";
+    public static String SQL_DISABLE = "--";
     private static final String tableEndFlag = String.format("CHARSET(%s)*=(%s)*[\\d\\D]*?;",SEPERATOR,SEPERATOR);
     private static final String tableStartFlag = String.format("CREATE(%s)*TABLE",SEPERATOR);
     public static Pattern endPattern = Pattern.compile(tableEndFlag);
@@ -31,11 +32,13 @@ public class Constants {
     public static final String rowAutoIncreaseFlag = "AUTO_INCREMENT";
     public static final String lengthStartFlag = "(";
     public static final String intLengthEndFlag = ")";
+    public static final String timeIsUpdateWhenModify = String.format("ON%sUPDATE%sCURRENT_TIMESTAMP",SEPERATOR,SEPERATOR);
     public static final String decimalIntPartLengthEndFlag = ",";
     public static final String decimalSecondPartLengthStartFlag = ",";
     public static final String decimalSecondPartLengthEndFlag = ")";
     public static final double TABLE_SAME_THRESHOLD = 0.8;
     public static final double ROW_SAME_THRESHOLD = 0.8;
+    public static final String defaultSqlDirName = "src/main/resources/sqlDir";
 
     static  {
         supportEngines = new ArrayList<>(4);

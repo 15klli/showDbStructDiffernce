@@ -15,7 +15,7 @@ import java.util.List;
 public class ListUtils {
 
     public static <T> boolean equalsListIgnoreOrder(List<T> list1, List<T> list2) {
-        if (list1.equals(list2)) return true;
+        if (list1 == list2 || list1.equals(list2)) return true;
         if (list1.size() != list2.size()) {
             return false;
         } else {

@@ -1,10 +1,7 @@
 package model;
 
 import _enum.DataType;
-import _exception.ComparingException;
-import util.SqlFactory;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -32,6 +29,8 @@ public class Row {
     private String defaultValue;
 
     private boolean isAutoIncrease;
+
+    private boolean timeIsUpdateWhenModify;
 
     private boolean isUnsigned;
 
@@ -107,6 +106,14 @@ public class Row {
         this.isUnsigned = unsigned;
     }
 
+    public boolean isTimeIsUpdateWhenModify() {
+        return timeIsUpdateWhenModify;
+    }
+
+    public void setTimeIsUpdateWhenModify(boolean timeIsUpdateWhenModify) {
+        this.timeIsUpdateWhenModify = timeIsUpdateWhenModify;
+    }
+
     public boolean isPrimary(Table table){
         if (table.getPrimaryKeyRowNameList() == null || table.getPrimaryKeyRowNameList().isEmpty())
             return false;
@@ -127,6 +134,7 @@ public class Row {
                 ", comment='" + comment + '\'' +
                 ", defaultValue='" + defaultValue + '\'' +
                 ", isAutoIncrease=" + isAutoIncrease +
+                ", timeIsUpdateWhenModify=" + timeIsUpdateWhenModify +
                 ", isUnsigned=" + isUnsigned +
                 '}';
     }
@@ -141,6 +149,7 @@ public class Row {
         if (isNullAble != row.isNullAble) return false;
         if (isAutoIncrease != row.isAutoIncrease) return false;
         if (isUnsigned != row.isUnsigned) return false;
+        if (timeIsUpdateWhenModify != row.timeIsUpdateWhenModify) return false;
         if (!Objects.equals(rowName.trim(), row.rowName.trim())) return false;
         if (dataType != row.dataType) return false;
         if (!Objects.equals(length, row.length)) return false;
