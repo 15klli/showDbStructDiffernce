@@ -11,12 +11,11 @@
 
 #### 1.0版本使用说明
 
-1. 使用`Navicat`软件导出 正式服数据库 以及 测试服服务器 数据库的表结构，获得两个 `sql`
+1. 使用`Navicat`软件导出 正式服数据库 以及 测试服服务器 数据库的表结构，获得两个 `sql`。![export_sql](https://gitee.com/klli852/showDbStructDiffernce/blob/master/src/main/resources/imgFolder/export_sql.png)
 2. 将两个文件放在`src/main/resources/sqlDir`下
 3. 然后在 `Demo`类中指定相应的文件，运行即可
    
    > 1. `fromFileName` 为待升级的数据库`sql`文件，如 正式服的数据库
-   > 
    > 2. `toFileName` 为想把待升级数据库 变成什么样的目标数据库`sql`文件，如 测试服的数据库
 4. `GeneratorUtils.generate()`方法返回一个`SQLResult`对象，
 5.  `SQLResult.getCanRunSqlString()`返回的是可以直接运行的`sql`语句，这里仅含**增加表格/增加字段/修改字段（不含删除）** 的操作，如
