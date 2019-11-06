@@ -21,6 +21,12 @@ import java.util.List;
 
 public class GeneratorUtils {
 
+    /**
+     * 生成sql
+     * @param fromFileInputStream 待升级的数据库
+     * @param toFileInputStream 升级后的目标数据库
+     * @return
+     */
     public static SQLResult generate(InputStream fromFileInputStream, InputStream toFileInputStream){
         if (fromFileInputStream == null || toFileInputStream ==null){
             throw new NullPointerException("文件输入流为null!请检查文件名");
@@ -37,9 +43,26 @@ public class GeneratorUtils {
         return null;
     }
 
+    /**
+     * 生成sql
+     * @warning: 默认在 src/main/resources/sqlDir 目录下
+     * @param fromFileName 待升级的数据库 sql文件名
+     * @param toFileName 升级后的目标数据库 sql文件名
+     * @return
+     */
     public static SQLResult generate(String fromFileName, String toFileName) throws IOException {
         return generate(Constants.defaultSqlDirName,fromFileName,toFileName);
     }
+
+
+    /**
+     * 生成sql
+     * @param directoryPath sql文件处于的文件夹路径
+     * @param fromFileName 待升级的数据库 sql文件名
+     * @param toFileName 升级后的目标数据库 sql文件名
+     * @return
+     * @throws IOException
+     */
     public static SQLResult generate(String directoryPath, String fromFileName, String toFileName) throws IOException {
         if (directoryPath == null || directoryPath.isEmpty()){
             throw new NullPointerException("sql文件所处的文件夹名为空");
