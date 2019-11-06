@@ -1,7 +1,7 @@
-package _enum;
+package common._enum;
 
 /**
- * @file: _enum.indexMethod
+ * @file: common._enum.indexMethod
  * @Description: todo
  * @author: lingo
  * @version: v1.0

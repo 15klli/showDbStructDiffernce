@@ -1,11 +1,10 @@
 package util;
 
-import _enum.DataType;
-import _enum.IndexMethod;
-import _enum.IndexType;
-import _exception.NotSupportEngine;
-import _exception.NotSupportFileException;
-import com.sun.org.apache.regexp.internal.RE;
+import common._enum.DataType;
+import common._enum.IndexMethod;
+import common._enum.IndexType;
+import common._exception.NotSupportEngine;
+import common._exception.NotSupportFileException;
 import common.Constants;
 import model.Row;
 import model.Table;

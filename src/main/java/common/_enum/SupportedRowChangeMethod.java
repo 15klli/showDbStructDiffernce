@@ -1,7 +1,7 @@
-package _enum;
+package common._enum;
 
 /**
- * @file: _enum.SupportedRowChangeMethod
+ * @file: common._enum.SupportedRowChangeMethod
  * @Description: todo
  * @author: lingo
  * @version: v1.0

@@ -1,12 +1,11 @@
-package _exception;
+package common._exception;
 
 import common.Constants;
 
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
- * @file: _exception.NotSupportEngine
+ * @file: common._exception.NotSupportEngine
  * @Description: todo
  * @author: lingo
  * @version: v1.0

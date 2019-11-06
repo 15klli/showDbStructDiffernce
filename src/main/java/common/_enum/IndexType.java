@@ -1,9 +1,9 @@
-package _enum;
+package common._enum;
 
 import common.Constants;
 
 /**
- * @file: _enum.IndexType
+ * @file: common._enum.IndexType
  * @Description: todo
  * @author: lingo
  * @version: v1.0

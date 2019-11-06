@@ -1,7 +1,7 @@
-package _exception;
+package common._exception;
 
 /**
- * @file: _exception.SqlFactoryException
+ * @file: common._exception.SqlFactoryException
  * @Description: todo
  * @author: lingo
  * @version: v1.0

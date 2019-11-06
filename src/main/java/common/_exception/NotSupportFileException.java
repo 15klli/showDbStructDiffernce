@@ -1,7 +1,7 @@
-package _exception;
+package common._exception;
 
 /**
- * @file: _exception.NotSupportFileException
+ * @file: common._exception.NotSupportFileException
  * @Description: todo
  * @author: lingo
  * @version: v1.0

@@ -1,6 +1,6 @@
 package model;
 
-import _enum.DataType;
+import common._enum.DataType;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package _enum;
+package common._enum;
 
 /**
  * Create by Lingo

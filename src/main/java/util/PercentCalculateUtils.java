@@ -1,7 +1,6 @@
 package util;
 
-import _exception.ComparingException;
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+import common._exception.ComparingException;
 import model.Row;
 import model.Table;
 

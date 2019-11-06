@@ -1,7 +1,7 @@
 package model;
 
-import _enum.IndexMethod;
-import _enum.IndexType;
+import common._enum.IndexMethod;
+import common._enum.IndexType;
 import util.ListUtils;
 
 import java.util.List;

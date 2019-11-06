@@ -21,7 +21,7 @@ public class Demo {
     }
 
     private static void demo() throws IOException {
-        SQLResult sqlResult = GeneratorUtils.generate("bb.sql", "bbtest.sql");
+        SQLResult sqlResult = GeneratorUtils.generate("db1.sql", "db2.sql");
         FileWriter canRunWriter = new FileWriter("canRun.sql");
         FileWriter needHandleWriter = new FileWriter("needHandle.sql");
         //可以直接运行，不会损坏已有数据

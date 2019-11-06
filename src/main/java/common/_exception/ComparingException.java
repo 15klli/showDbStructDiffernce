@@ -1,7 +1,7 @@
-package _exception;
+package common._exception;
 
 /**
- * @file: _exception.ComparingException
+ * @file: common._exception.ComparingException
  * @Description: todo
  * @author: lingo
  * @version: v1.0
