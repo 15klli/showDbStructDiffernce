@@ -6,7 +6,7 @@ package common._exception;
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/2 11:01
- * @Company: www.xyb2b.com
+
  */
 
 public class NotSupportFileException extends RuntimeException {

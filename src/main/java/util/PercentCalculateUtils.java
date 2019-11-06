@@ -10,7 +10,7 @@ import model.Table;
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/4 20:25
- * @Company: www.xyb2b.com
+
  */
 
 public class PercentCalculateUtils {

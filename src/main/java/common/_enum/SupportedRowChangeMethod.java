@@ -6,7 +6,7 @@ package common._enum;
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/4 10:39
- * @Company: www.xyb2b.com
+
  */
 
 public enum SupportedRowChangeMethod {

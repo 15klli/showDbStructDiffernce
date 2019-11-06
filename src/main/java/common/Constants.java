@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/2 15:15
- * @Company: www.xyb2b.com
+
  */
 
 public class Constants {

@@ -8,7 +8,7 @@ import common.Constants;
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/2 14:25
- * @Company: www.xyb2b.com
+
  */
 
 public enum IndexType {

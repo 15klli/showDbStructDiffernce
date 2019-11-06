@@ -6,7 +6,7 @@ package common._exception;
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/4 9:28
- * @Company: www.xyb2b.com
+
  */
 
 public class ComparingException extends RuntimeException {

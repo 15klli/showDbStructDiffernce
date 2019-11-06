@@ -19,7 +19,7 @@ import static common.Constants.WRAP_STRING;
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/4 10:32
- * @Company: www.xyb2b.com
+
  */
 
 public class SqlFactory {

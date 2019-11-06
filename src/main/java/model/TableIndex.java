@@ -12,7 +12,7 @@ import java.util.List;
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/2 14:24
- * @Company: www.xyb2b.com
+
  */
 
 public class TableIndex {

@@ -6,7 +6,7 @@ package common._enum;
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/2 14:27
- * @Company: www.xyb2b.com
+
  */
 
 public enum IndexMethod {
