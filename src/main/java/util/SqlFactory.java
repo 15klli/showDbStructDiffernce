@@ -1,8 +1,8 @@
 package util;
 
-import _enum.DataType;
-import _enum.IndexMethod;
-import _enum.SupportedRowChangeMethod;
+import common._enum.DataType;
+import common._enum.IndexMethod;
+import common._enum.SupportedRowChangeMethod;
 import common.Constants;
 import model.Row;
 import model.Table;
@@ -108,7 +108,7 @@ public class SqlFactory {
                 "--  如果不是，请运行以下语句删除旧数据列\r\n"+
                 "--  %s"+
                 "--  如果是,请运行以下语句\r\n" +
-                "-- ----------------------------",table.getTableName(),fromRow.getRowName(),getDropRowSql(table,fromRow),toRow.getRowName());
+                "-- ----------------------------",table.getTableName(),fromRow.getRowName(),toRow.getRowName(),getDropRowSql(table,fromRow));
     }
     public static String getDropRowTipsInDifferentNameTable(Table fromTable,Row fromRow,Table toTable, Row toRow){
         return String.format("-- ----------------------------\r\n" +
