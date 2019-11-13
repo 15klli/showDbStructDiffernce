@@ -2,7 +2,6 @@ package model;
 
 /**
  * @file: model.DBConnectionInfo
- * @Description: todo
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/7 13:47

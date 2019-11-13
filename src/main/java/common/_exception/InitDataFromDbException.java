@@ -2,7 +2,7 @@ package common._exception;
 
 /**
  * @file: common._exception.InitDataFromDbException
- * @Description: todo
+
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/7 16:37

@@ -15,7 +15,6 @@ import static common.Constants.WRAP_STRING;
 
 /**
  * @file: util.SqlFactory
- * @Description: todo
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/4 10:32

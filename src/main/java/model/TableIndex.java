@@ -8,7 +8,6 @@ import java.util.List;
 
 /**
  * @file: model.TableIndex
- * @Description: todo
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/2 14:24

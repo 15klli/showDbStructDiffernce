@@ -8,7 +8,6 @@ import java.sql.SQLException;
 
 /**
  * @file: PACKAGE_NAME.Demo
- * @Description: todo
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/1 15:05

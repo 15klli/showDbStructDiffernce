@@ -6,7 +6,6 @@ import model.Table;
 
 /**
  * @file: util.PercentCalculateUtils
- * @Description: todo
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/4 20:25

@@ -4,7 +4,6 @@ import common.Constants;
 
 /**
  * @file: common._enum.IndexType
- * @Description: todo
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/2 14:25

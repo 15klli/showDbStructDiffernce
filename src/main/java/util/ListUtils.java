@@ -5,7 +5,6 @@ import java.util.List;
 
 /**
  * @file: util.ListUtils
- * @Description: todo
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/4 16:00

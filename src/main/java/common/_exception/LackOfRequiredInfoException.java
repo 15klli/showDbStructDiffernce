@@ -2,7 +2,6 @@ package common._exception;
 
 /**
  * @file: common._exception.LackOfRequiredInfoException
- * @Description: todo
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/7 14:05

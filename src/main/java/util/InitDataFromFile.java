@@ -23,7 +23,6 @@ import static common.Constants.*;
 
 /**
  * @file: util.InitDataFromFile
- * @Description: todo
  * @author: lingo
  * @version: v1.0
  * @date: 2019/11/1 16:22
