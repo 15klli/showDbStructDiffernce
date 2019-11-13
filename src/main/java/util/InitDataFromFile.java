@@ -306,7 +306,7 @@ public class InitDataFromFile {
         row.setDefaultValue(getRowDefaultValue(rowString));
         row.setNullAble(isNullAble(rowString));
         row.setLength(getLength(rowString,rowDataType));
-        System.out.println(row.getRowName());
+//        System.out.println(row.getRowName());
         if (rowDataType == DataType.DECIMAL || rowDataType == DataType.FLOAT || rowDataType == DataType.DOUBLE){
             row.setDecimalLength(getDecimalLength(rowString,rowDataType));
         }else{
