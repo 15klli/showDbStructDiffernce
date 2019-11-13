@@ -9,6 +9,7 @@ import model.TableIndex;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static common.Constants.NOT_FOUND;
 import static common.Constants.WRAP_STRING;
 
 /**
@@ -49,7 +50,12 @@ public class Generator {
         toTableList.forEach(toTable ->{
             if (!fromTableMap.keySet().contains(toTable.getTableName())) {
                 //如果之前的表格不包含 后来的表格，则增加
-                addTableSqlStringBuilder.append(toTable.getCreateSql()).append(WRAP_STRING).append(WRAP_STRING);
+                if (toTable.getAutoIncreament()==null){
+                    addTableSqlStringBuilder.append(toTable.getCreateSql());
+                }else{//将递增重置为1
+                    addTableSqlStringBuilder.append(resetAutoIncrement(toTable.getCreateSql()));
+                }
+                addTableSqlStringBuilder.append(WRAP_STRING).append(WRAP_STRING);
             } else {
                 //如果包含，则对比Row
                 Table fromTable = fromTableMap.get(toTable.getTableName());
@@ -217,4 +223,24 @@ public class Generator {
         return rowRenameSqlBuilder.toString();
     }
 
+
+    private static String resetAutoIncrement(String createTableSql){
+        final String autoIncreamentStartFlag = "AUTO_INCREMENT";
+        int start = createTableSql.lastIndexOf(autoIncreamentStartFlag);
+        assert start != NOT_FOUND;
+        String substring = createTableSql.substring(start + autoIncreamentStartFlag.length());
+        int pos = 0;
+        //跳过非数字，直至找到数字
+        while(true){
+            char c = substring.charAt(pos);
+            if (c >='0' && c<='9') break;
+            pos++;
+        }
+        while(true){
+            char c = substring.charAt(pos);
+            if (!(c >='0' && c<='9')) break;
+            pos ++;
+        }
+        return createTableSql.substring(0,start+autoIncreamentStartFlag.length())+"=1"+substring.substring(pos);
+    }
 }
