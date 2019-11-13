@@ -3,6 +3,8 @@
 #### 介绍
 
 寻找两个数据库结构的不同之处，并生成对应的能保证两个数据库结构一致的sql
+#### 项目地址
+* https://gitee.com/klli852/showDbStructDiffernce
 
 #### 用途
 

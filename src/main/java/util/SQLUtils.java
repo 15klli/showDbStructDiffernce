@@ -1,10 +1,11 @@
 package util;
 
-import model.Table;
+import common.Constants;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -25,15 +26,18 @@ public class SQLUtils {
 
     static {
         Properties properties = new Properties();
-        try {properties.load(new FileInputStream("src/main/resources/sqlDir.properties"));
-            driver = properties.getProperty("driver");
-            url = properties.getProperty("url");
-            user = properties.getProperty("user");
-            password = properties.getProperty("password");
+        try {properties.load(new FileInputStream("src/main/resources/sql.properties"));
+            driver = properties.getProperty("fromDB.driver");
+            url = properties.getProperty("fromDB.url");
+            user = properties.getProperty("fromDB.user");
+            password = properties.getProperty("fromDB.password");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
+
 //    public static Table getTableInfo(String tableName) throws ClassNotFoundException, SQLException {
 //        Class.forName(driver);
 //        Connection connection = DriverManager.getConnection(url, user, password);
@@ -109,6 +113,23 @@ public class SQLUtils {
 
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        getTableRemark("t_bb_origin");
+        Connection connection = DriverManager.getConnection(url, user, password);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("Show tables");// 查询此数据库有多少个表格
+        List<String> tableList = new ArrayList<>();
+        while (resultSet.next()){
+            tableList.add(resultSet.getString(1));
+        }
+        StringBuilder allSql = new StringBuilder();
+        for (String tableName : tableList) {
+            ResultSet createResult = statement.executeQuery(String.format("SHOW CREATE TABLE `%s`", tableName));
+            createResult.next();
+            allSql.append(createResult.getString(2).replaceAll("\n", "\r\n"))
+                    .append(Constants.SQL_END_APPEND);
+            createResult.close();
+        }
+        InitDataFromFile.getTablesFromSql(allSql.toString()).forEach(System.out::println);
+
     }
+
 }

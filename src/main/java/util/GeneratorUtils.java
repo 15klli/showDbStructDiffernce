@@ -1,6 +1,7 @@
 package util;
 
 import common.Constants;
+import model.DBConnectionInfo;
 import model.SQLResult;
 import model.Table;
 
@@ -27,20 +28,24 @@ public class GeneratorUtils {
      * @param toFileInputStream 升级后的目标数据库
      * @return
      */
-    public static SQLResult generate(InputStream fromFileInputStream, InputStream toFileInputStream){
+    public static SQLResult generateFromFile(InputStream fromFileInputStream, InputStream toFileInputStream){
         if (fromFileInputStream == null || toFileInputStream ==null){
             throw new NullPointerException("文件输入流为null!请检查文件名");
         }
         try {
             List<Table> fromTableList = InitDataFromFile.getTablesFromInputStream(fromFileInputStream);
             List<Table> toTableList = InitDataFromFile.getTablesFromInputStream(toFileInputStream);
-            Generator generator = new Generator(fromTableList, toTableList);
-            SQLResult sqlResult = generator.generate();
-            return sqlResult;
+            return getSqlResult(fromTableList, toTableList);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static SQLResult getSqlResult(List<Table> fromTableList, List<Table> toTableList) {
+        Generator generator = new Generator(fromTableList, toTableList);
+        SQLResult sqlResult = generator.generate();
+        return sqlResult;
     }
 
     /**
@@ -50,9 +55,10 @@ public class GeneratorUtils {
      * @param toFileName 升级后的目标数据库 sql文件名
      * @return
      */
-    public static SQLResult generate(String fromFileName, String toFileName) throws IOException {
-        return generate(Constants.defaultSqlDirName,fromFileName,toFileName);
+    public static SQLResult generateFromFile(String fromFileName, String toFileName) throws IOException {
+        return generateFromFile(Constants.defaultSqlDirName,fromFileName,toFileName);
     }
+
 
 
     /**
@@ -63,7 +69,7 @@ public class GeneratorUtils {
      * @return
      * @throws IOException
      */
-    public static SQLResult generate(String directoryPath, String fromFileName, String toFileName) throws IOException {
+    public static SQLResult generateFromFile(String directoryPath, String fromFileName, String toFileName) throws IOException {
         if (directoryPath == null || directoryPath.isEmpty()){
             throw new NullPointerException("sql文件所处的文件夹名为空");
         }
@@ -75,11 +81,17 @@ public class GeneratorUtils {
         }
         try (FileInputStream fromStream = new FileInputStream(directoryPath+"/"+fromFileName);
              FileInputStream toStream = new FileInputStream(directoryPath+"/"+toFileName)){
-            return generate(fromStream, toStream);
+            return generateFromFile(fromStream, toStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static SQLResult generateFromUrl(DBConnectionInfo fromDb,DBConnectionInfo toDb) {
+        List<Table> fromTableList = InitDataFromUrlUtils.getTableList(fromDb);
+        List<Table> toTableList = InitDataFromUrlUtils.getTableList(toDb);
+        return getSqlResult(fromTableList,toTableList);
     }
 
 }

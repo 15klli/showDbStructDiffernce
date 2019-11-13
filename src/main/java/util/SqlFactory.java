@@ -63,13 +63,23 @@ public class SqlFactory {
         return "";
     }
 
+    public static String getIsUnsignedPartString(Row row){
+        if (row.isUnsigned()){
+            return Constants.unsignedFlag;
+        }
+        return "";
+    }
+
     public static String getRenameRowSql(Table table,Row fromRow,Row toRow){
         return getAlterTableSql(table)+ "CHANGE" + SQL_SEPERATOR + "COLUMN" + SQL_SEPERATOR +
-                String.format("`%s` `%s`",fromRow.getRowName(),toRow.getRowName()) + SQL_SEPERATOR + toRow.getDataType() + getLengthPartString(toRow) + SQL_SEPERATOR +
+                String.format("`%s` `%s`",fromRow.getRowName(),toRow.getRowName()) + SQL_SEPERATOR + toRow.getDataType() +
+                getLengthPartString(toRow) + SQL_SEPERATOR +
+                getIsUnsignedPartString(toRow) + SQL_SEPERATOR +
                 getNullAblePartString(toRow) + SQL_SEPERATOR +
                 getDefaultValuePartString(toRow) + SQL_SEPERATOR + getTimeIsUpdateWhenModifyPartString(toRow) + SQL_SEPERATOR +
                 getCommentPartString(toRow)+SQL_END_APPEND;
     }
+
 
     private static String getRowSql(Table table,SupportedRowChangeMethod changeMethod, Row toRow){
         return getAlterTableSql(table)+ changeMethod.getMethodName() + SQL_SEPERATOR + "COLUMN" + SQL_SEPERATOR +

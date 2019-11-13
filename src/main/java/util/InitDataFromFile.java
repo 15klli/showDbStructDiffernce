@@ -43,6 +43,11 @@ public class InitDataFromFile {
 
     public static List<Table> getTablesFromInputStream(InputStream inputStream) throws IOException {
         String fileContent = getFileContent(inputStream);
+        List<Table> tableList = getTablesFromSql(fileContent);
+        return tableList;
+    }
+
+    public static List<Table> getTablesFromSql(String fileContent) {
         List<Integer> startPosList = getStartPosList(fileContent);
         List<Integer> endPosList = getEndPosList(fileContent);
         if (startPosList.isEmpty() || endPosList.isEmpty()){
@@ -302,7 +307,8 @@ public class InitDataFromFile {
         row.setDefaultValue(getRowDefaultValue(rowString));
         row.setNullAble(isNullAble(rowString));
         row.setLength(getLength(rowString,rowDataType));
-        if (rowDataType == DataType.DECIMAL || rowDataType == DataType.DECIMAL_UNSIGNED){
+        System.out.println(row.getRowName());
+        if (rowDataType == DataType.DECIMAL || rowDataType == DataType.FLOAT || rowDataType == DataType.DOUBLE){
             row.setDecimalLength(getDecimalLength(rowString,rowDataType));
         }else{
             row.setDecimalLength(null);
@@ -357,7 +363,7 @@ public class InitDataFromFile {
 
     private static Integer getLength(String rowString,DataType dataType){
         String endFlag = intLengthEndFlag;
-        if (dataType == DataType.DECIMAL || dataType == DataType.DECIMAL_UNSIGNED){
+        if (dataType == DataType.DECIMAL || dataType == DataType.FLOAT || dataType == DataType.DOUBLE){
             endFlag = decimalIntPartLengthEndFlag;
         }
         String jdbcName = dataType.getJdbcName();
@@ -377,14 +383,14 @@ public class InitDataFromFile {
 
     private static Integer getDecimalLength(String rowString,DataType dataType){
         String flag = dataType.getJdbcName();
-        int begin = rowString.indexOf(flag);
+        int begin = rowString.toUpperCase().indexOf(flag.toUpperCase());
         assert begin != NOT_FOUND;
         String targetString = getTargetString(rowString.substring(begin + flag.length()), decimalSecondPartLengthStartFlag, decimalSecondPartLengthEndFlag);
         return Integer.valueOf(targetString);
     }
     private static boolean isNullAble(String rowString){
         String flag = String.format("NOT%sNULL",SEPERATOR);
-        return !rowString.contains(flag);
+        return !rowString.toUpperCase().contains(flag);
     }
 
     private static String getRowComment(String rowString) {
@@ -395,8 +401,7 @@ public class InitDataFromFile {
 
 
     private static boolean isUnsigned(String rowString){
-        final String unsignedFlag = "unsigned";
-        return rowString.contains(unsignedFlag);
+        return rowString.toUpperCase().contains(unsignedFlag);
     }
 
     private static String getRowDefaultValue(String rowString){
@@ -413,7 +418,7 @@ public class InitDataFromFile {
     }
 
     private static boolean isRowAutoIncrease(String rowString){
-        return rowString.contains(Constants.rowAutoIncreaseFlag);
+        return rowString.toUpperCase().contains(Constants.rowAutoIncreaseFlag);
     }
 
     //常用方法

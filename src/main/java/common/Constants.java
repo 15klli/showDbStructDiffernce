@@ -32,6 +32,7 @@ public class Constants {
     public static final String rowAutoIncreaseFlag = "AUTO_INCREMENT";
     public static final String lengthStartFlag = "(";
     public static final String intLengthEndFlag = ")";
+    public static final String unsignedFlag = "UNSIGNED";
     public static final String timeIsUpdateWhenModify = String.format("ON%sUPDATE%sCURRENT_TIMESTAMP",SEPERATOR,SEPERATOR);
     public static final String decimalIntPartLengthEndFlag = ",";
     public static final String decimalSecondPartLengthStartFlag = ",";

@@ -9,7 +9,6 @@ import model.TableIndex;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static common.Constants.SEPERATOR;
 import static common.Constants.WRAP_STRING;
 
 /**
@@ -31,14 +30,7 @@ public class Generator {
     private StringBuilder addTableSqlStringBuilder;
     private StringBuilder deleteOrRenameSqlStringBuilder;
 
-    public String getAddTableSqlString(){
-        return this.addTableSqlStringBuilder.toString();
-    }
-    public String getAlterTableSqlString(){
-        return this.alterTableSqlStringBuilder.toString();
-    }
-    public String getDeleteOrRenameSqlString(){
-        return this.deleteOrRenameSqlStringBuilder.toString();
+    private Generator() {
     }
 
     public Generator(List<Table> fromTableList, List<Table> toTableList) {
@@ -226,10 +218,4 @@ public class Generator {
         return rowRenameSqlBuilder.toString();
     }
 
-//    private static StringBuilder changeTheEndOfSql(StringBuilder builder){
-//        String toDeleteString = SQL_END_APPEND;
-//        int endPos = builder.length();
-//        builder.delete(endPos-toDeleteString.length(),endPos).append(";");
-//        return builder.append(WRAP_STRING);
-//    }
 }
