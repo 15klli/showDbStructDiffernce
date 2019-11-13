@@ -23,7 +23,7 @@ public class Demo {
     }
 
     private static void demoFromFile() throws IOException {
-        SQLResult sqlResult = GeneratorUtils.generateFromFile("db1.sql", "db2.sql");
+        SQLResult sqlResult = GeneratorUtils.generateFromFile("fromTable.sql", "toTable.sql");
         FileWriter canRunWriter = new FileWriter("canRun.sql");
         FileWriter needHandleWriter = new FileWriter("needHandle.sql");
         //可以直接运行，不会损坏已有数据

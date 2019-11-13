@@ -1,36 +1,24 @@
 # showDbStructDiffernce
 
 #### Description
-寻找两个数据库结构的不同之处，并生成对应的维护一致的sql
 
-#### Software Architecture
-Software architecture description
+Find the difference between `fromTable` & `toTable` database,and generate the sql to make `fromTable` same as `toTable` **SAFELY**
 
-#### Installation
+#### Apply Situation
+When the project need to deploy to the producing environment from test/dev environment, this tool can be used to ensure the database in produce same as the one in test/dev. 
+And, we don't need to accelerate the modify sql any more! 
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+#### Quick Start
+##### From File
+1. use `Navicat` Software to export the database structure.  
+2. After the first step, you get two `.sql` file. One is the sql file exported from the database **NEED TO CHANGE**(called `fromTable`), another is exported from the database ** HAS THE STRUCTURE YOU WANT **(called `toTable`)
+3. Put such two files into `resources/sqlDir`
+4. Finally, refer to the `demoFromFile` of `Demo.java` 
+##### From URL
+1. Finally, refer to the `demoFromUrl` of `Demo.java` 
 
-#### Instructions
+#### Contact Me
+* Email: 852778163@qq.com
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### Contribution
-
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
-
-
-#### Gitee Feature
-
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+#### License
+* BSD
